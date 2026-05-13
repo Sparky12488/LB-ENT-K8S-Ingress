@@ -1,5 +1,7 @@
 # ![Logo](docs/images/Logo.png)
 
+[![Build and Publish Image](https://github.com/Sparky12488/LB-ENT-K8S-Ingress/actions/workflows/build.yaml/badge.svg)](https://github.com/Sparky12488/LB-ENT-K8S-Ingress/actions/workflows/build.yaml)
+
 ## LB-ENT-K8S-Ingress
 
 An unofficial, high-performance **Kubernetes Ingress Controller** for Loadbalancer.org Enterprise Appliances. 
@@ -19,7 +21,7 @@ This controller bridges Kubernetes service discovery with Layer 7 load balancing
 ---
 
 ## 🛠️ Prerequisites
-* **Loadbalancer.org Appliance** (v8.13.6+) with API access enabled.
+* **Loadbalancer.org Appliance** (v8.13.X+) with API access enabled.
 
 * **Kubernetes Cluster** (Kind, K3s, or Bare Metal).
 
@@ -32,7 +34,9 @@ This controller bridges Kubernetes service discovery with Layer 7 load balancing
 Example files can be found in the **deploy** folder 
 
 ### Configure the Cluster
-Create the namespace and configuration. Update the LB_APPLIANCE_IP to your hardware's management IP.
+Create the namespace and configuration. 
+Update the LB_APPLIANCE_IP to your hardware's management IP.
+Add a Comma separatedlist of IP's that can be used as the Frontend Service IP's 
 
 **`cluster-config.yaml`**
 ```YAML
@@ -53,7 +57,7 @@ data:
 ```
 
 ### Credentials
-Create a secret for your API Key and Password. Do not commit this file to Git.
+Create a secret for your API Key and Password.
 
 **`secrets.yaml`**
 
@@ -65,7 +69,7 @@ metadata:
   namespace: ingress-controller
 type: Opaque
 stringData:
-  API_KEY: "YOUR_ENCODED_API_KEY"
+  API_KEY: "YOUR_API_KEY"
   LB_PASS: "YOUR_PASSWORD"
 ```
 
