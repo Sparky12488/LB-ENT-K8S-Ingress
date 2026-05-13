@@ -1,0 +1,55 @@
+# 1. The App
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app
+  namespace: ingress-controller
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: demo-app
+  template:
+    metadata:
+      labels:
+        app: demo-app
+    spec:
+      containers:
+      - name: nginx
+        image: nginxdemos/hello:plain-text
+        ports:
+        - containerPort: 80
+---
+# 2. The Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-service
+  namespace: ingress-controller
+spec:
+  selector:
+    app: demo-app
+  ports:
+  - port: 80
+    targetPort: 80
+---
+# 3. The Ingress (The Trigger)
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demo-ingress
+  namespace: ingress-controller
+  annotations:
+    kubernetes.io/ingress.class: "lb-org"
+spec:
+  ingressClassName: lb-org
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: demo-service
+            port:
+              number: 80

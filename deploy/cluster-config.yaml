@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ingress-controller
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: lb-controller-config
+  namespace: ingress-controller
+data:
+  LB_APPLIANCE_IP: "10.30.80.70"
+  VIP_POOL: "10.30.80.71,10.30.80.72,10.30.80.73"
+  LB_USER: "loadbalancer"

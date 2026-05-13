@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lb-ingress-controller
+  namespace: ingress-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lb-controller
+  template:
+    metadata:
+      labels:
+        app: lb-controller
+    spec:
+      serviceAccountName: lb-controller-sa
+      containers:
+      - name: controller
+        image: lb-ingress-controller:local
+        imagePullPolicy: IfNotPresent
+        resources: # Clears VSCode "Noisy Neighbor" warnings
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+        env:
+        - name: LB_APPLIANCE_IP
+          valueFrom:
+            configMapKeyRef:
+              name: lb-controller-config
+              key: LB_APPLIANCE_IP
+        - name: VIP_POOL
+          valueFrom:
+            configMapKeyRef:
+              name: lb-controller-config
+              key: VIP_POOL
+        - name: LB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: lb-controller-config
+              key: LB_USER
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: lb-appliance-auth
+              key: API_KEY
+        - name: LB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: lb-appliance-auth
+              key: LB_PASS
