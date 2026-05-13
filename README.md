@@ -1,12 +1,12 @@
 <p align="center">
-  <img src="docs/images/logo.png" alt="LB-ENT-K8S-Ingress Logo" width="200">
+  <img src="docs/images/Logo.png" alt="LB-ENT-K8S-Ingress Logo" width="200">
 </p>
 
 <h1 align="center">LB-ENT-K8S-Ingress</h1>
 
 <p align="center">
-  <a href="https://github.com/Sparky12488/LB-ENT-K8S-Ingress/actions/workflows/build.yaml">
-    <img src="https://github.com/Sparky12488/LB-ENT-K8S-Ingress/actions/workflows/build.yaml/badge.svg" alt="Build Status">
+  <a href="https://github.com/Sparky12488/LB-ENT-K8S-Ingress/actions/workflows/build.yml">
+    <img src="https://github.com/Sparky12488/LB-ENT-K8S-Ingress/actions/workflows/build.yml/badge.svg" alt="Build Status">
   </a>
 </p>
 
