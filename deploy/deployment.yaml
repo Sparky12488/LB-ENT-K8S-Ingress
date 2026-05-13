@@ -16,9 +16,9 @@ spec:
       serviceAccountName: lb-controller-sa
       containers:
       - name: controller
-        image: lb-ingress-controller:local
+        image: ghcr.io/sparky12488/lb-ent-k8s-ingress:latest
         imagePullPolicy: IfNotPresent
-        resources: # Clears VSCode "Noisy Neighbor" warnings
+        resources: 
           limits:
             cpu: "200m"
             memory: "256Mi"

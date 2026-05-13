@@ -9,6 +9,6 @@ metadata:
   name: lb-controller-config
   namespace: ingress-controller
 data:
-  LB_APPLIANCE_IP: "10.30.80.70"
-  VIP_POOL: "10.30.80.71,10.30.80.72,10.30.80.73"
+  LB_APPLIANCE_IP: "<Primary loadbalancer IP>"
+  VIP_POOL: "<Pool of IP's>"
   LB_USER: "loadbalancer"
