@@ -1,4 +1,4 @@
-# ![Logo](docs/images/logo.png)
+# ![Logo](docs/images/Logo.png)
 
 ## LB-ENT-K8S-Ingress
 
