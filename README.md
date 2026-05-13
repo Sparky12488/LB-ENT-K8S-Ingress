@@ -1,8 +1,14 @@
-# ![Logo](docs/images/Logo.png)
+<p align="center">
+  <img src="docs/images/logo.png" alt="LB-ENT-K8S-Ingress Logo" width="200">
+</p>
 
-[![Build and Publish Image](https://github.com/Sparky12488/LB-ENT-K8S-Ingress/actions/workflows/build.yaml/badge.svg)](https://github.com/Sparky12488/LB-ENT-K8S-Ingress/actions/workflows/build.yaml)
+<h1 align="center">LB-ENT-K8S-Ingress</h1>
 
-## LB-ENT-K8S-Ingress
+<p align="center">
+  <a href="https://github.com/Sparky12488/LB-ENT-K8S-Ingress/actions/workflows/build.yaml">
+    <img src="https://github.com/Sparky12488/LB-ENT-K8S-Ingress/actions/workflows/build.yaml/badge.svg" alt="Build Status">
+  </a>
+</p>
 
 An unofficial, high-performance **Kubernetes Ingress Controller** for Loadbalancer.org Enterprise Appliances. 
 This controller bridges Kubernetes service discovery with Layer 7 load balancing provided by the Loadbalancer.org appliance.
