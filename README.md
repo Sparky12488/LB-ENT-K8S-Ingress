@@ -88,20 +88,50 @@ kubectl apply -f deployment.yaml
 ```
 ---
 
-## 📡 Networking Note
+## 📡 High Availability Pod Routing
+To ensure that the **Loadbalancer.org appliance** can always reach the Pod Network (x.x.0.0/16) even if a worker node fails, we implement a **Floating Gateway** using VRRP (Keepalived).
 
-To allow the Load Balancer to health-check the pods, ensure you have a static route on the appliance:
+## 🏗️ Logic
+Instead of pointing the appliance to a single node IP (which creates a Single Point of Failure), we point it to a **Virtual IP (VIP)** shared across all worker nodes.
 
-* **Destination:** 10.244.0.0/16 (Your Pod CIDR)
+1. **The Workers:** Run keepalived to maintain the Floating IP.
 
-* **Gateway:** [Your K8s Node IP]
+2. **The Appliance:** Uses Floating IP as the static route gateway for all container traffic.
 
-On the K8s Host, enable IP forwarding:
+3. **Failover:** If the primary worker node goes down, the Floating IP instantly moves to a backup worker, keeping the traffic path alive.
+
+## 🛠️ Configuration Steps
+
+1. Worker Node Setup
+Install Keepalived on all worker nodes:
 
 ```Bash
-sudo sysctl -w net.ipv4.ip_forward=1
-sudo iptables -t nat -A POSTROUTING -j MASQUERADE
+sudo apt-get install -y keepalived
 ```
+
+Create `/etc/keepalived/keepalived.conf`:
+
+```Bash
+vrrp_instance POD_GATEWAY {
+    state BACKUP
+    interface eth0           # Match your physical interface
+    virtual_router_id 60
+    priority 100             # Set higher (e.g., 110) on your preferred node
+    advert_int 1
+    virtual_ipaddress {
+        x.x.x.x/24      # The Floating Gateway IP
+    }
+}
+```
+2. Loadbalancer.org Appliance Setup
+Add the new Floating Gateway to the **Routing** config :
+
+Local Configuration > Routing > Static Routes
+
+**subnet:** Pod Network Address (x.x.x.x/16)
+
+
+**Via Gateway:** Floating Gateway IP
 
 ---
 
